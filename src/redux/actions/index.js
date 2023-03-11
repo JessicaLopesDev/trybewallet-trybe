@@ -1,5 +1,6 @@
 export const USER_DATA = 'USER_DATA';
-export const WALLET_DATA = 'WALLET_DATA';
+export const CURRENCY_DATA = 'CURRENCY_DATA';
+export const EXPENSE_DATA = 'EXPENSE_DATA';
 export const ENDPOINT_API = 'https://economia.awesomeapi.com.br/json/all';
 
 export const addEmailAction = (userData) => ({
@@ -7,9 +8,14 @@ export const addEmailAction = (userData) => ({
   payload: userData,
 });
 
-export const addCurrenciesAction = (walletData) => ({
-  type: WALLET_DATA,
-  payload: walletData,
+export const addCurrenciesAction = (currencyData) => ({
+  type: CURRENCY_DATA,
+  payload: currencyData,
+});
+
+export const addCurrencyAction = (expenseData) => ({
+  type: EXPENSE_DATA,
+  payload: expenseData,
 });
 
 export const fetchCurrencies = () => async (dispatch) => {
@@ -18,7 +24,6 @@ export const fetchCurrencies = () => async (dispatch) => {
 
   const dataKeys = Object.keys(data);
   const filteredDataKeys = dataKeys.filter((item) => item !== 'USDT');
-  // console.log(filteredDataKeys);
 
   dispatch(addCurrenciesAction(filteredDataKeys));
 };
