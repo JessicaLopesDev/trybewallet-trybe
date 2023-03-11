@@ -17,7 +17,8 @@ export const fetchCurrencies = () => async (dispatch) => {
   const data = await response.json();
 
   const dataKeys = Object.keys(data);
-  const indexUSDT = dataKeys.indexOf('USDT');
-  dataKeys.splice(indexUSDT, 1);
-  dispatch(currencyAction(dataKeys));
+  const filteredDataKeys = dataKeys.filter((item) => item !== 'USDT');
+  // console.log(filteredDataKeys);
+
+  dispatch(addCurrenciesAction(filteredDataKeys));
 };
