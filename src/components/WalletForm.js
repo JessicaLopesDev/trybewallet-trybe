@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { fetchCurrencies } from '../redux/actions';
+import { addExpenseAction, ENDPOINT_API, fetchCurrencies } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
-    id: 0,
     value: 0,
     description: '',
-    currency: '',
-    method: '',
-    tag: '',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
+    exchangeRates: {},
   };
 
   componentDidMount() {
@@ -26,26 +26,34 @@ class WalletForm extends Component {
     this.setState({ [name]: value });
   };
 
-  // handleSubmit = () => {
-  //   const { id, value, description, currency, method, tag } = this.state;
+  handleSubmit = async (event) => {
+    const { dispatch, expensesData } = this.props;
+    event.preventDefault();
 
-  //   this.setState(() => ({
-  //     ...prevState,
-  //     id,
-  //     value,
-  //     description,
-  //     currency,
-  //     method,
-  //     tag,
-  //   }));
-  // };
+    const currencyResponse = await fetch(ENDPOINT_API);
+    const data = await currencyResponse.json();
+
+    this.setState({ exchangeRates: data }, () => {
+      dispatch(addExpenseAction(this.state));
+    });
+
+    console.log(expensesData);
+
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
+  };
 
   render() {
     const { id, value, description, currency, method, tag } = this.state;
     const { currenciesData } = this.props;
 
     return (
-      <form id={ id }>
+      <form onSubmit={ this.handleSubmit } id={ id }>
         <input
           type="number"
           placeholder="Valor"
@@ -119,11 +127,13 @@ class WalletForm extends Component {
 
 const mapStateToProps = (state) => ({
   currenciesData: state.wallet.currencies,
+  expensesData: state.wallet.expenses,
 });
 
 WalletForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   currenciesData: PropTypes.instanceOf(Array).isRequired,
+  expensesData: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default connect(mapStateToProps)(WalletForm);

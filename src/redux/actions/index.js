@@ -8,12 +8,12 @@ export const addEmailAction = (userData) => ({
   payload: userData,
 });
 
-export const addCurrenciesAction = (currencyData) => ({
+export const addCurrencyAction = (currencyData) => ({
   type: CURRENCY_DATA,
   payload: currencyData,
 });
 
-export const addCurrencyAction = (expenseData) => ({
+export const addExpenseAction = (expenseData) => ({
   type: EXPENSE_DATA,
   payload: expenseData,
 });
@@ -25,5 +25,5 @@ export const fetchCurrencies = () => async (dispatch) => {
   const dataKeys = Object.keys(data);
   const filteredDataKeys = dataKeys.filter((item) => item !== 'USDT');
 
-  dispatch(addCurrenciesAction(filteredDataKeys));
+  dispatch(addCurrencyAction(filteredDataKeys));
 };

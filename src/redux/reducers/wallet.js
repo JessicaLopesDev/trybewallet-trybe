@@ -15,7 +15,13 @@ const wallet = (state = INITIAL_STATE, action) => {
   };
   case EXPENSE_DATA: return {
     ...state,
-    expenses: action.payload,
+    expenses: [
+      ...state.expenses,
+      {
+        id: state.expenses.length,
+        ...action.payload,
+      },
+    ],
   };
   default: return state;
   }
