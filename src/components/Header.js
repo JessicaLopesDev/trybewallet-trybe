@@ -11,7 +11,6 @@ class Header extends Component {
       const sum = item.value * item.exchangeRates[item.currency].ask;
       total += sum;
     });
-    console.log(total);
 
     return total.toFixed(2);
   };
