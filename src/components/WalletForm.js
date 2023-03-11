@@ -35,17 +35,16 @@ class WalletForm extends Component {
 
     this.setState({ exchangeRates: data }, () => {
       dispatch(addExpenseAction(this.state));
+      this.setState({
+        value: '',
+        description: '',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+      });
     });
 
     console.log(expensesData);
-
-    this.setState({
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    });
   };
 
   render() {
