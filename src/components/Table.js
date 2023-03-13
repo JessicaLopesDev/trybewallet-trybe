@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { deleteExpenseAction } from '../redux/actions';
+import {
+  deleteExpenseAction,
+  editExpenseAction,
+} from '../redux/actions';
 
 class Table extends Component {
+  handleEditExpense = (expenseId) => {
+    const { dispatch } = this.props;
+    dispatch(editExpenseAction(expenseId));
+  };
+
   render() {
     const { expenses, dispatch } = this.props;
 
@@ -28,11 +36,18 @@ class Table extends Component {
           {
             expenses && expenses.map((item) => (
               <tr key={ `${item.description}-${item.id}` }>
-                <td>{item.description}</td>
-                <td>{item.tag}</td>
-                <td>{item.method}</td>
-                <td>{Number(item.value).toFixed(2)}</td>
-
+                <td>
+                  {item.description}
+                </td>
+                <td>
+                  {item.tag}
+                </td>
+                <td>
+                  {item.method}
+                </td>
+                <td>
+                  {Number(item.value).toFixed(2)}
+                </td>
                 <td>
                   {item.exchangeRates[item.currency].name}
                 </td>
@@ -44,7 +59,10 @@ class Table extends Component {
                 </td>
                 <td>Real</td>
                 <td>
-                  <button data-testid="edit-btn">
+                  <button
+                    data-testid="edit-btn"
+                    onClick={ () => this.handleEditExpense(item.id) }
+                  >
                     Editar
                   </button>
                   <button

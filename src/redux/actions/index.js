@@ -2,6 +2,8 @@ export const USER_DATA = 'USER_DATA';
 export const CURRENCY_DATA = 'CURRENCY_DATA';
 export const EXPENSE_DATA = 'EXPENSE_DATA';
 export const EXPENSE_DELETE = 'EXPENSE_DELETE';
+export const EXPENSE_EDIT = 'EXPENSE_EDIT';
+export const EXPENSES = 'EXPENSES';
 export const ENDPOINT_API = 'https://economia.awesomeapi.com.br/json/all';
 
 export const addEmailAction = (userData) => ({
@@ -22,6 +24,16 @@ export const addExpenseAction = (expenseData) => ({
 export const deleteExpenseAction = (expenseId) => ({
   type: EXPENSE_DELETE,
   payload: expenseId,
+});
+
+export const editExpenseAction = (expenseId) => ({
+  type: EXPENSE_EDIT,
+  payload: expenseId,
+});
+
+export const addTableAction = (expenses) => ({
+  type: EXPENSES,
+  payload: expenses,
 });
 
 export const fetchCurrencies = () => async (dispatch) => {
