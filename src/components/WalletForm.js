@@ -27,7 +27,7 @@ class WalletForm extends Component {
   };
 
   handleSubmit = async (event) => {
-    const { dispatch, expensesData } = this.props;
+    const { dispatch } = this.props;
     event.preventDefault();
 
     const currencyResponse = await fetch(ENDPOINT_API);
@@ -43,8 +43,6 @@ class WalletForm extends Component {
         tag: 'Alimentação',
       });
     });
-
-    console.log(expensesData);
   };
 
   render() {
@@ -131,7 +129,6 @@ const mapStateToProps = (state) => ({
 WalletForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   currenciesData: PropTypes.instanceOf(Array).isRequired,
-  expensesData: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default connect(mapStateToProps)(WalletForm);

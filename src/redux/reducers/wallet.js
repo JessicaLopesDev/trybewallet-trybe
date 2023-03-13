@@ -1,4 +1,4 @@
-import { CURRENCY_DATA, EXPENSE_DATA } from '../actions';
+import { CURRENCY_DATA, EXPENSE_DATA, EXPENSE_DELETE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -22,6 +22,11 @@ const wallet = (state = INITIAL_STATE, action) => {
         ...action.payload,
       },
     ],
+  };
+  case EXPENSE_DELETE: return {
+    ...state,
+    expenses:
+      state.expenses.filter((item) => item.id !== action.payload),
   };
   default: return state;
   }
